@@ -1,4 +1,4 @@
-const Moneda = Object.freeze({ /*ENUM*/
+const EstadoPedido = Object.freeze({ /*ENUM*/
     PENDIENTE:"PENDIENTE",
     CONFIRMADO:"CONFIRMADO",
     EN_PREPARACION:"EN_PREPARACION",

@@ -1,10 +1,10 @@
-class CambioEstadoPedido {
+class Notificacion {
     /** @type string */
     id;
     /** @type Usuario */
     usuarioDestino;
     /** @type string */
-    mesnaje;
+    mensaje;
     /** @type date */
     fechaAlta;
     /** @type boolean */
@@ -14,15 +14,22 @@ class CambioEstadoPedido {
 
     //------- methods -------//
 
-    constructor(id, usuarioDestino, mensaje) {
-        this.id = id;
+    /**
+     * @param {Usuario} usuarioDestino
+     * @param {string} mensaje
+     */
+    constructor(usuarioDestino, mensaje) {
+        
         this.usuarioDestino = usuarioDestino;
         this.mensaje = mensaje;
         this.fechaAlta = new Date();
         this.leida = false;
         this.fechaLeida = null;
+
+        usuarioDestino.agregarNotificacion(this);
     }
 
+    
     marcarComoLeida(){
         this.leida = true;
         this.fechaLeida = new Date();

@@ -20,6 +20,18 @@ class DireccionEntrega {
     /** @type string */
     lon;
 
+    /**
+     * @param {string} calle
+     * @param {string} altura
+     * @param {string} piso
+     * @param {string} departamento
+     * @param {string} codigoPostal
+     * @param {string} ciudad
+     * @param {string} provincia
+     * @param {string} pais
+     * @param {string} lat
+     * @param {string} lon
+     */
     constructor(calle, altura, piso, departamento, codigoPostal, ciudad, provincia, pais, lat, lon) {
         this.calle = calle;
         this.altura = altura;
@@ -31,5 +43,10 @@ class DireccionEntrega {
         this.pais = pais;
         this.lat = lat;
         this.lon = lon;
+    }
+
+    
+    pasarAString() {
+        return `${this.calle} ${this.altura}, ${this.piso} ${this.departamento}, ${this.ciudad}, ${this.provincia}, ${this.pais} - ${this.codigoPostal}`;
     }
 }

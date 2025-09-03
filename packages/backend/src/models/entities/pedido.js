@@ -3,6 +3,8 @@ class Pedido{
     id;
     /** @type Usuario */
     comprador;
+    /** @type Usuario */
+    vendedor;
     /** @type ItemPedido[] */
     items;
     /** @type number */
@@ -17,21 +19,33 @@ class Pedido{
     fechaCreacion;
     /** @type CambioEstadoPedido[] */
     historialEstados;
-    
+    /** @type Usuario */
+    vendedor;
+
     /**
      * @param {string} id
      * @param {Usuario} comprador
-     * @param items itemsPedido[]
-     * @param moneda Moneda
-     * @param direccionEntrega DireccionEntrega
-     * @param estado EstadoPedido
-     * @param fechaCreacion Date
-     * @param historialEstados CambioEstadoPedido[]
+     * @param {Usuario} vendedor
+     * @param {ItemPedido[]} items 
+     * @param {Moneda} moneda
+     * @param {DireccionEntrega} direccionEntrega
+     * @param {EstadoPedido} estado
+     * @param {Date} fechaCreacion
+     * @param {CambioEstadoPedido[]} historialEstados
      */
-    
-    constructor(id, comprador, items, moneda, direccionEntrega, estado, fechaCreacion, historialEstados){
-        //TODO
-        this.items
+    constructor(id,comprador, vendedor, items, moneda, direccionEntrega){
+        this.id = id;
+        this.comprador = comprador;
+        this.vendedor = vendedor;
+        this.items = items;
+        this.moneda = moneda;
+        this.direccionEntrega = direccionEntrega;
+        this.estado = EstadoPedido.PENDIENTE;
+        this.fechaCreacion = new Date();
+        this.historialEstados = [];
+
+        const notificacion = FactoryNotification.crearSegunPedido(this);
+        //notificacion.notificar();//ver si lo hacemos asi o no
     }
 
     //------- methods -------//
@@ -44,8 +58,15 @@ class Pedido{
         return this.total;
     }
 
+    /**
+     * @param {EstadoPedido} nuevoEstado
+     * @param {Usuario} usuario
+     * @param {string} motivo
+     */
     actualizarEstado(nuevoEstado, usuario, motivo){
         this.estado = nuevoEstado;
+
+        FactoryNotification.crearSegunPedido(this);
         
         const unCambioEstadoPedido = new CambioEstadoPedido(new Date(), nuevoEstado, this, usuario, motivo);
         this.historialEstados.push(unCambioEstadoPedido);
